@@ -1,0 +1,67 @@
+%% ===========================================================================
+%% COMPLEXITY --- Complexity classes and language/problem names
+%% Uses the `complexity` package; this file customizes and extends it.
+%% ===========================================================================
+\ProvidesPackage{preamble-complexity}
+\RequirePackage{preamble-header}
+
+%% --- Load package ---------------------------------------------------------
+\usepackage{complexity}
+%% \EE (the obscure "double-exponential time" class) clashes with our
+%% \mathbb{E} shorthand.  Kill it --- use \class{EE} if ever needed.
+\undef\EE
+
+%% --- Override: "co" prefix in roman, class name in sans-serif ------------
+%% Package default: \ComplexityFont{co}#1  -->  all sans-serif
+%% Our style:       \mathrm{co}#1          -->  roman "co" + sans-serif class
+\renewcommand{\co}[1]{\mathrm{co}#1}
+
+%% --- Redefine package's pre-built co- classes for consistency ------------
+\renewcommand{\coNP}{\co{\NP}}
+\renewcommand{\coNL}{\co{\NL}}
+\renewcommand{\coRP}{\co{\RP}}
+\renewcommand{\coRE}{\co{\RE}}
+\renewcommand{\coRNC}{\co{\RNC}}
+\renewcommand{\coAM}{\co{\AM}}
+\renewcommand{\coMA}{\co{\MA}}
+\renewcommand{\coBPP}{\co{\BPP}}
+\renewcommand{\coNE}{\co{\NE}}
+\renewcommand{\coNEXP}{\co{\NEXP}}
+\renewcommand{\coNQP}{\co{\NQP}}
+\renewcommand{\coSL}{\co{\SL}}
+\renewcommand{\coUP}{\co{\UP}}
+\renewcommand{\coCeP}{\mathrm{co}\ComplexityFont{C}_{=}\ComplexityFont{P}}
+
+%% --- Missing co- classes not in the package ------------------------------
+\newcommand{\coL}{\co{\L}}
+\newcommand{\coRL}{\co{\RL}}
+\newcommand{\coSPACE}{\co{\SPACE}}
+\newcommand{\coNSPACE}{\co{\NSPACE}}
+\newcommand{\coPSPACE}{\co{\PSPACE}}
+\newcommand{\coEXPSPACE}{\co{\EXPSPACE}}
+\newcommand{\coNEXPSPACE}{\co{\NEXPSPACE}}
+
+%% --- Other classes not in the package ------------------------------------
+\@ifundefined{TISP}{\newclass{\TISP}{TISP}}{}
+\@ifundefined{TIME}{\newclass{\TIME}{TIME}}{}
+\@ifundefined{NEXPSPACE}{\newclass{\NEXPSPACE}{NEXPSPACE}}{}
+
+%% --- #P variants ---------------------------------------------------------
+\newcommand{\shP}{{\sharp\ComplexityFont{P}}}
+\newcommand{\hP}{{\#\ComplexityFont{P}}}
+
+%% --- Language / problem names (small-caps, distinct from class style) ----
+%% The complexity package defines \SAT as \lang{SAT} (sans-serif); we
+%% override it here to match our small-caps convention for language names.
+\renewcommand{\SAT}{\ensuremath{\textsc{Sat}}\xspace}
+\newcommand{\HALT}{\ensuremath{\textsc{Halt}}\xspace}
+\newcommand{\TQBF}{\ensuremath{\textsc{Tqbf}}}
+\newcommand{\LP}{\ensuremath{\textsc{Lp}}\xspace}
+\newcommand{\ILP}{\ensuremath{\textsc{Ilp}}\xspace}
+\newcommand{\DomSet}{\ensuremath{\textsc{Dom-Set}}\xspace}
+\newcommand{\CNFSAT}{\ensuremath{\textsc{Cnf-Sat}}\xspace}
+\newcommand{\TAUT}{\ensuremath{\textsc{Taut}}\xspace}
+\newcommand{\PIT}{\ensuremath{\textsc{Pit}}\xspace}
+\newcommand{\OPT}{\ensuremath{\textsc{Opt}}\xspace}
+
+\endinput

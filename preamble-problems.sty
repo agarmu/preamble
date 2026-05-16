@@ -1,0 +1,78 @@
+%% ===========================================================================
+%% PROBLEMS --- Problem/solution environments, hints, and utility commands
+%% ===========================================================================
+\ProvidesPackage{preamble-problems}
+\RequirePackage{preamble-header}
+\RequirePackage{preamble-math}
+
+%% --- Problem environment -------------------------------------------------
+\newcounter{probctr}
+\newtoggle{inprob}
+
+\NewDocumentEnvironment{prob}{}{%
+    \toggletrue{inprob}%
+    \stepcounter{probctr}%
+    \begin{enumerate}[
+        label=\textbf{({\arabic*})},
+        start=\value{probctr},
+        leftmargin=*,
+        itemsep=0.6\baselineskip,
+        topsep=0.6\baselineskip,
+        parsep=0pt,
+        partopsep=0pt
+    ]%
+        \item
+        \ignorespaces
+}{%
+        \unskip
+    \end{enumerate}%
+    \togglefalse{inprob}%
+}
+
+%% --- Solution environment (tcolorbox + proof) ----------------------------
+\definecolor{ProbColor}{named}{SteelBlue}
+\colorlet{ProbBg}{ProbColor!20!white}
+\colorlet{ProbAccent}{ProbColor!80!black}
+\colorlet{ProbText}{ProbColor!50!black}
+
+\NewDocumentEnvironment{soln}{}{%
+    \iftoggle{inprob}{}{%
+        \PackageError{prob}{soln environment must be used inside prob}{}%
+    }%
+    \begin{tcolorbox}[
+        breakable,
+        sharp corners,
+        enhanced,
+        frame hidden,
+        boxrule=0pt,
+        colback=ProbBg,
+        boxsep=5pt,
+        top=5pt,
+        bottom=5pt,
+        left=2pt,
+        right=0pt,
+        width=\linewidth
+    ]%
+        \setlength{\parskip}{0.5\baselineskip}
+        \setlength{\parindent}{0pt}
+        \begin{proof}[Solution]
+}{%
+            \ignorespaces\unskip
+        \end{proof}
+    \end{tcolorbox}%
+}
+
+%% --- Hint environment ----------------------------------------------------
+\theoremstyle{remark}
+\newtheorem*{hint}{Hint}
+
+%% --- Utility commands ----------------------------------------------------
+\providecommand{\todo}{\textcolor{red}{\textbf{TODO --- Do not forget}}}
+
+% sub-part lists: (a), (b), ... with (i), (ii), ... nested inside
+\newlist{parts}{enumerate}{3}
+\setlist[parts,1]{label=(\arabic{partsi}),itemsep=0.15em,topsep=0.25em}
+\setlist[parts,2]{label=(\alph{partsii}),itemsep=0.15em,topsep=0.25em}
+\setlist[parts,3]{label=(\roman{partsiii}),itemsep=0.15em,topsep=0.25em}
+
+\endinput

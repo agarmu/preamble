@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{preamble}
+\title{Preamble Smoke Test}
+\author{Test}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\part{Intro}
+\section{Math}
+Let $A \subseteq \RR$ with $|A| = n$. Then $\poly(n) = n^{O(1)}$ and $\polylog(n) = (\log n)^{O(1)}$. Also $\emptyset \neq \zo$ and $\zon$.
+
+Expectation operator: $\ep_{x\sim \Unif([n])}[x] = (n+1)/2$ with $\EE[\ind\{X>0\}]$ well-defined.
+
+Operators: $\im(f)$, $\diam(S)$, $\Sigma = \sum$, $\phi, \epsilon, \eps$ are curly.
+
+Delimiters: $\parof{x+y}$, $\braof{x+y}$, $\setof{1,2,3}$, $\ceilof{x}$, $\floorof{x}$, $\angof{x}$.
+
+\section{Complexity}
+Classes: $\P \subseteq \NP$, $\coNP$, $\PSPACE$, $\TIME(n^2)$, $\TISP(n,\log n)$, $\coNEXP$.
+Languages: $\SAT$, $\CNFSAT$, $\TQBF$.
+
+\section{Algorithms}
+\begin{algo}{Example}{n}{An example algorithm}[alg:ex]
+  \item Input: $n \in \NN$
+  \item Return: $n$
+\end{algo}
+
+\section{Problems}
+\begin{prob}
+Show that $1+1=2$.
+\begin{soln}
+Trivial.
+\end{soln}
+\end{prob}
+
+\end{document}

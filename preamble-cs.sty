@@ -1,0 +1,66 @@
+%% ===========================================================================
+%% CS --- Computer science: Boolean constants, algorithms, pseudocode steps
+%% ===========================================================================
+\ProvidesPackage{preamble-cs}
+\RequirePackage{preamble-header}
+\RequirePackage{preamble-math}
+
+%% --- Brackets (stmaryrd) -------------------------------------------------
+\usepackage{stmaryrd}
+
+%% --- Boolean constants ---------------------------------------------------
+\providecommand{\true}{\ensuremath{\mathsf{True}}\xspace}
+\providecommand{\false}{\ensuremath{\mathsf{False}}\xspace}
+
+%% --- Algorithm environment -----------------------------------------------
+\usepackage[plain]{algorithm}
+
+\providecommand{\algname}[1]{\text{\normalfont\texttt{\underline{#1}}}\xspace}
+
+% widen the quote environment's left margin inside algorithms
+\patchcmd{\quote}{\rightmargin}{\leftmargin 1.5em \rightmargin}{}{}
+
+% #1 = algorithm name,  #2 = args (math),  #3 = caption,
+% #4 = label (optional),  #5 = width (optional, default 0.8\linewidth)
+\NewDocumentEnvironment{algo}{m m m O{} O{0.8\linewidth} +b}{%
+    \providecommand{\curralgo}{\algname{#1}}%
+    \begin{center}
+        \vspace*{0.5em}
+        \fbox{\begin{minipage}{#5}
+                \vspace*{-0.5em}
+                \begin{algorithm}[H]
+                    \caption{{#3}}\ifstrempty{#4}{}{\label{#4}}%
+                    \noindent{\curralgo}\(\parof{#2}\)
+                    \begin{quote}
+                        \begin{steps}
+                            #6
+                        \end{steps}
+                    \end{quote}
+                \end{algorithm}
+                \vspace*{-0.5em}
+            \end{minipage}}
+        \vspace*{0.5em}
+    \end{center}
+    \undef{\curralgo}%
+}{}
+
+%% --- Pseudocode step lists -----------------------------------------------
+\newcommand{\stepsfont}{\normalfont}
+
+\newlist{steps}{enumerate}{9}
+\setlist[steps]{before=\upshape\stepsfont,font=\ttfamily}
+\setlist[steps,1]{leftmargin=*,labelsep=1ex,label={\arabic*.},ref={\arabic*}}
+\setlist[steps,2]{leftmargin=*,labelsep=1ex,label={\Alph*.},ref={\thestepsi.\Alph*}}
+\setlist[steps,3]{leftmargin=*,labelsep=1ex,label={\arabic*.},ref={\thestepsii.\arabic*}}
+\setlist[steps,4]{leftmargin=*,labelsep=1ex,label={\alph*.},ref={\thestepsiii.\alph*}}
+\setlist[steps,5]{leftmargin=*,labelsep=1ex,label={\arabic*.},ref={\thestepsiv.\arabic*}}
+\setlist[steps,6]{leftmargin=*,labelsep=1ex,label={\Alph*.},ref={\thestepsv.\Alph*}}
+\setlist[steps,7]{leftmargin=*,labelsep=1ex,label={\arabic*.},ref={\thestepsvi.\roman*}}
+\setlist[steps,8]{leftmargin=*,labelsep=1ex,label={\alph*.},ref={\thestepsvii.\alph*}}
+\setlist[steps,9]{leftmargin=*,labelsep=1ex,label={\arabic*.},ref={\thestepsviii.\arabic*}}
+
+% itemized lists inside pseudocode
+\newlist{stepitems}{itemize}{1}
+\setlist[stepitems]{before=\upshape\ttfamily,label=*,leftmargin=*,labelsep=1ex}
+
+\endinput

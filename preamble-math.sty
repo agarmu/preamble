@@ -1,0 +1,151 @@
+%% ===========================================================================
+%% MATH --- Theorem environments, operators, notation, and delimiters
+%% ===========================================================================
+\ProvidesPackage{preamble-math}
+\RequirePackage{preamble-header}
+\RequirePackage{preamble-complexity}
+
+%% --- Theorem styles & environments ---------------------------------------
+\usepackage{amsthm}
+\usepackage{mathdots}
+\usepackage{bbm}  % \mathbbm{1} for indicator
+
+\newtheoremstyle{plain}
+    {0.5em}        % space above
+    {0.5em}        % space below
+    {}             % body font
+    {}             % indent amount
+    {\bfseries}    % theorem head font
+    {.}            % punctuation after head
+    {.5em}         % space after head
+    {}             % head spec (empty = default)
+
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{impthm}[theorem]{Imported Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+% prevent theorems from starting at the bottom of a page
+\AtBeginEnvironment{theorem}{\Needspace{5\baselineskip}}
+\AtBeginEnvironment{theorem*}{\Needspace{5\baselineskip}}
+
+\crefname{claim}{claim}{claims}
+\Crefname{claim}{Claim}{Claims}
+
+% proof variants
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{sketch}{\begin{proof}[Proof Sketch]}{\end{proof}}
+
+%% --- Mathematical alphabets (loaded here so operators can use \EE etc.) ---
+\RequirePackage{preamble-letters}
+
+%% --- Math operators ------------------------------------------------------
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Out}{Out}
+\DeclareMathOperator{\GL}{GL}
+%% \SL from the complexity package; override with our operator.
+\undef\SL
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\PSL}{PSL}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Char}{Char}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Disc}{Disc}
+\DeclareMathOperator{\Unif}{Unif}
+\DeclareMathOperator{\Size}{\mathsf{Size}}
+%% Override \poly/\polylog from the complexity package: use proper operators
+%% instead of the package's \func wrappers for correct spacing in formulas.
+\undef\poly
+\DeclareMathOperator{\poly}{\mathsf{poly}}
+\undef\polylog
+\DeclareMathOperator{\polylog}{\mathsf{polylog}}
+\DeclareMathOperator{\negl}{\mathsf{negl}}
+\DeclareMathOperator{\err}{err}
+\DeclareMathOperator*{\argmax}{arg\ max}
+\DeclareMathOperator*{\argmin}{arg\ min}
+\DeclareMathOperator*{\ep}{\EE}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Act}{Act}
+\DeclareMathOperator{\Var}{Var}
+
+%% --- Symbol overrides ----------------------------------------------------
+% use the "slashed circle" empty set everywhere
+\renewcommand{\emptyset}{\varnothing}
+
+% prefer curly forms of epsilon and phi
+\let\stdeps\epsilon
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\eps}{\ensuremath{\varepsilon}\xspace}
+
+\let\stdphi\phi
+\renewcommand{\phi}{\varphi}
+
+%% --- Notation shortcuts --------------------------------------------------
+% definition equality (:=)
+\newcommand{\defeq}{\ensuremath{\vcentcolon=}\xspace}
+
+% asymptotic notation
+\providecommand{\bo}[1]{\ensuremath{\mathcal{O}\left(#1\right)}\xspace}
+\providecommand{\so}[1]{\ensuremath{\tilde{\mathcal{O}}\left(#1\right)}\xspace}
+\providecommand{\lo}[1]{\ensuremath{\mathcal{o}\left(#1\right)}\xspace}
+
+% number systems and structured sets
+\providecommand{\zn}[1]{\ensuremath{\mathbb{Z}_{#1}}}          % integers mod n
+\providecommand{\za}[1]{\ensuremath{\mathbb{Z}^{\ast}_{#1}}}  % units mod n
+\providecommand{\zo}{\ensuremath{\setof{0, 1}}}                % binary set
+\providecommand{\zon}{\ensuremath{{\zo}^n}}                    % {0,1}^n
+\providecommand{\zoa}{\ensuremath{{\zo}^{\ast}}}               % {0,1}*
+\providecommand{\ft}{\ensuremath{\mathbb{F}_2}}                % field with 2 elements
+
+% probability and misc
+\providecommand{\getsr}{\mathbin{\stackrel{\mbox{\,\tiny\textdollar}}{\gets}}}   % random sampling
+\providecommand{\ip}[1]{\ensuremath{\left\langle #1 \right\rangle}}              % inner product
+\providecommand{\fourier}{\mathbin{\stackrel{\mbox{\,\tiny\ensuremath{\mathcal{F}}}}{\mapsto}}} % Fourier transform
+\providecommand{\col}{\ensuremath{\mathrm{col}}\xspace}          % column space
+\providecommand{\ind}{\ensuremath{\mathbbm{1}}\xspace}           % indicator function
+\providecommand{\sgn}{\ensuremath{\mathrm{sgn}}\xspace}         % sign function
+\providecommand{\lp}[1]{\ensuremath{\ell_{#1}}\xspace}          % Lp spaces
+\providecommand{\expect}{\ensuremath{\mathop{\mathbb{E}}}\xspace} % expectation
+\providecommand{\abs}[1]{\ensuremath{\left\lvert{#1}\right\rvert}\xspace}
+\providecommand{\norm}[1]{\ensuremath{\left\lVert{#1}\right\rVert}\xspace}
+\providecommand{\pmo}{\ensuremath{\pm 1}}
+
+%% --- Delimiters ----------------------------------------------------------
+\usepackage{mleftright}
+\mleftright
+
+\providecommand{\parof}[1]{\ensuremath{\mleft({#1}\mright)}\xspace}
+\providecommand{\braof}[1]{\ensuremath{\mleft[{#1}\mright]}\xspace}
+\providecommand{\setof}[1]{\ensuremath{\mleft\{{#1}\mright\}}\xspace}
+\providecommand{\ceilof}[1]{\ensuremath{\mleft\lceil{#1}\mright\rceil}\xspace}
+\providecommand{\floorof}[1]{\ensuremath{\mleft\lfloor{#1}\mright\rfloor}\xspace}
+\providecommand{\angof}[1]{\ensuremath{\mleft\langle {#1}\mright\rangle}\xspace}
+
+% compound notation
+\providecommand{\ze}[1]{\ensuremath{\bZ\parof{#1}}}
+\providecommand{\ce}[1]{\ensuremath{\cC\parof{#1}}}
+
+%% --- Misc ----------------------------------------------------------------
+\usepackage{xfrac}
+
+\endinput
